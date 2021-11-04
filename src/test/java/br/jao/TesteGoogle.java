@@ -15,7 +15,7 @@ public class TesteGoogle {
         WebDriver driver = new FirefoxDriver();
         // WebDriver driver = new ChromeDriver();
         
-        // Posição e Tamanho do Broser
+        // Posição e Tamanho do Browser
         // driver.manage().window().setPosition(new Point(0, 0));
         // driver.manage().window().setSize(new Dimension(1200, 660));
         // driver.manage().window().maximize();
