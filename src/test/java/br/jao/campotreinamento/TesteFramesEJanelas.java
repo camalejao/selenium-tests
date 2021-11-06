@@ -1,6 +1,8 @@
 package br.jao.campotreinamento;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -10,14 +12,24 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 
 public class TesteFramesEJanelas {
     
-    @Test
-    public void deveInteragirComFrame() {
-        WebDriver driver = new FirefoxDriver();
+    private WebDriver driver;
+
+    @Before
+    public void inicializaDriver() {
+        driver = new FirefoxDriver();
         // WebDriver driver = new ChromeDriver();
         
         String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
         driver.get(url);
+    }
 
+    @After
+    public void finalizaDriver() {
+        driver.quit();
+    }
+
+    @Test
+    public void deveInteragirComFrame() {
         driver.switchTo().frame("frame1");
         driver.findElement(By.id("frameButton")).click();
 
@@ -32,18 +44,10 @@ public class TesteFramesEJanelas {
         text.sendKeys(msg);
         
         Assert.assertEquals("Frame OK!", text.getAttribute("value"));
-
-        driver.quit();
     }
 
     @Test
     public void deveInteragirComPopup() {
-        WebDriver driver = new FirefoxDriver();
-        // WebDriver driver = new ChromeDriver();
-        
-        String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
-        driver.get(url);
-
         String originalWindow = driver.getWindowHandle();
 
         driver.findElement(By.id("buttonPopUpEasy")).click();
@@ -52,18 +56,10 @@ public class TesteFramesEJanelas {
         driver.close();
         driver.switchTo().window(originalWindow);
         driver.findElement(By.tagName("textarea")).sendKeys("E agora na janela principal");
-
-        driver.quit();
     }
 
     @Test
     public void deveInteragirComPopupSemTitulo() {
-        WebDriver driver = new FirefoxDriver();
-        // WebDriver driver = new ChromeDriver();
-        
-        String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
-        driver.get(url);
-
         String originalWindow = driver.getWindowHandle();
 
         driver.findElement(By.id("buttonPopUpHard")).click();
@@ -73,8 +69,6 @@ public class TesteFramesEJanelas {
         
         driver.switchTo().window(originalWindow);
         driver.findElement(By.tagName("textarea")).sendKeys("E agora na janela principal");
-
-        driver.quit();
     }
 
 }

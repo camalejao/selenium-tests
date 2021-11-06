@@ -2,7 +2,9 @@ package br.jao.campotreinamento;
 
 import java.time.Duration;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -13,49 +15,43 @@ import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TesteRegrasDeNegocio {
-    
-    @Test
-    public void nomeDeveSerObrigatorio() {
-        WebDriver driver = new FirefoxDriver();
+
+    private WebDriver driver;
+
+    @Before
+    public void inicializaDriver() {
+        driver = new FirefoxDriver();
         // WebDriver driver = new ChromeDriver();
         
         String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
         driver.get(url);
+    }
 
+    @After
+    public void finalizaDriver() {
+        driver.quit();
+    }
+    
+    @Test
+    public void nomeDeveSerObrigatorio() {
         driver.findElement(By.id("elementosForm:cadastrar")).click();
 
         Alert alert = driver.switchTo().alert();
         Assert.assertEquals("Nome eh obrigatorio", alert.getText());
-
-        driver.quit();
     }
 
     @Test
     public void sobrenomeDeveSerObrigatorio() {
-        WebDriver driver = new FirefoxDriver();
-        // WebDriver driver = new ChromeDriver();
-        
-        String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
-        driver.get(url);
-
         driver.findElement(By.id("elementosForm:nome")).sendKeys("Nome");
 
         driver.findElement(By.id("elementosForm:cadastrar")).click();
 
         Alert alert = driver.switchTo().alert();
         Assert.assertEquals("Sobrenome eh obrigatorio", alert.getText());
-
-        driver.quit();
     }
 
     @Test
     public void sexoDeveSerObrigatorio() {
-        WebDriver driver = new FirefoxDriver();
-        // WebDriver driver = new ChromeDriver();
-        
-        String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
-        driver.get(url);
-
         driver.findElement(By.id("elementosForm:nome")).sendKeys("Nome");
         driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Sobrenome");
 
@@ -63,18 +59,10 @@ public class TesteRegrasDeNegocio {
 
         Alert alert = driver.switchTo().alert();
         Assert.assertEquals("Sexo eh obrigatorio", alert.getText());
-
-        driver.quit();
     }
 
     @Test
     public void testeVegetariano() {
-        WebDriver driver = new FirefoxDriver();
-        // WebDriver driver = new ChromeDriver();
-        
-        String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
-        driver.get(url);
-
         driver.findElement(By.id("elementosForm:nome")).sendKeys("Nome");
         driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Sobrenome");
         driver.findElement(By.id("elementosForm:sexo:1")).click();
@@ -100,18 +88,10 @@ public class TesteRegrasDeNegocio {
         alert = driver.switchTo().alert();
         Assert.assertEquals("Tem certeza que voce eh vegetariano?", alert.getText());
         alert.dismiss();
-
-        driver.quit();
     }
 
     @Test
     public void testeEsportes() {
-        WebDriver driver = new FirefoxDriver();
-        // WebDriver driver = new ChromeDriver();
-        
-        String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
-        driver.get(url);
-
         driver.findElement(By.id("elementosForm:nome")).sendKeys("Nome");
         driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Sobrenome");
         driver.findElement(By.id("elementosForm:sexo:1")).click();
@@ -126,8 +106,6 @@ public class TesteRegrasDeNegocio {
         Alert alert = driver.switchTo().alert();
         Assert.assertEquals("Voce faz esporte ou nao?", alert.getText());
         alert.dismiss();
-
-        driver.quit();
     }
 
 }

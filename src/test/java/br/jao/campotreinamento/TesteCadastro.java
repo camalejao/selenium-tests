@@ -1,6 +1,8 @@
 package br.jao.campotreinamento;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,14 +11,24 @@ import org.openqa.selenium.support.ui.Select;
 
 public class TesteCadastro {
     
-    @Test
-    public void deveRealizarCadastro() {
-        WebDriver driver = new FirefoxDriver();
+    private WebDriver driver;
+
+    @Before
+    public void inicializaDriver() {
+        driver = new FirefoxDriver();
         // WebDriver driver = new ChromeDriver();
         
         String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
         driver.get(url);
+    }
 
+    @After
+    public void finalizaDriver() {
+        driver.quit();
+    }
+
+    @Test
+    public void deveRealizarCadastro() {
         // Nome
         driver.findElement(By.id("elementosForm:nome")).sendKeys("João");
 
@@ -65,8 +77,6 @@ public class TesteCadastro {
         Assert.assertTrue(driver.findElement(By.id("descEscolaridade")).getText().endsWith("2graucomp"));
         Assert.assertTrue(driver.findElement(By.id("descEsportes")).getText().endsWith("Natacao Corrida"));
         Assert.assertTrue(driver.findElement(By.id("descSugestoes")).getText().endsWith("Melhorar Alimentação"));
-
-        driver.quit();
     }
 
 }

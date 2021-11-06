@@ -2,7 +2,9 @@ package br.jao.campotreinamento;
 
 import java.time.Duration;
 
+import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
@@ -14,14 +16,24 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 public class TesteAlert {
     
-    @Test
-    public void deveInteragirComAlertSimples() {
-        WebDriver driver = new FirefoxDriver();
+    private WebDriver driver;
+
+    @Before
+    public void inicializaDriver() {
+        driver = new FirefoxDriver();
         // WebDriver driver = new ChromeDriver();
         
         String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
         driver.get(url);
-        
+    }
+
+    @After
+    public void finalizaDriver() {
+        driver.quit();
+    }
+
+    @Test
+    public void deveInteragirComAlertSimples() {
         WebElement alertButton = driver.findElement(By.id("alert"));
         alertButton.click();
 
@@ -34,18 +46,10 @@ public class TesteAlert {
         WebElement textField = driver.findElement(By.id("elementosForm:nome"));
         textField.sendKeys(alertText);
         Assert.assertEquals(alertText, textField.getAttribute("value"));
-
-        driver.quit();
     }
 
     @Test
     public void deveConfirmarAlerta() {
-        WebDriver driver = new FirefoxDriver();
-        // WebDriver driver = new ChromeDriver();
-        
-        String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
-        driver.get(url);
-        
         WebElement confirmButton = driver.findElement(By.id("confirm"));
         confirmButton.click();
 
@@ -60,18 +64,10 @@ public class TesteAlert {
 
         confirmText = alert.getText();
         Assert.assertEquals("Confirmado", confirmText);
-
-        driver.quit();
     }
 
     @Test
     public void deveRejeitarAlerta() {
-        WebDriver driver = new FirefoxDriver();
-        // WebDriver driver = new ChromeDriver();
-        
-        String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
-        driver.get(url);
-        
         WebElement confirmButton = driver.findElement(By.id("confirm"));
         confirmButton.click();
 
@@ -87,18 +83,10 @@ public class TesteAlert {
         
         String alertText = alert.getText();
         Assert.assertEquals("Negado", alertText);
-
-        driver.quit();
     }
 
     @Test
     public void deveInteragirComPrompt() {
-        WebDriver driver = new FirefoxDriver();
-        // WebDriver driver = new ChromeDriver();
-        
-        String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
-        driver.get(url);
-        
         WebElement promptButton = driver.findElement(By.id("prompt"));
         promptButton.click();
         Alert prompt = driver.switchTo().alert();
@@ -117,7 +105,5 @@ public class TesteAlert {
             .until(ExpectedConditions.alertIsPresent());
 
         Assert.assertEquals(":D", prompt.getText());
-
-        driver.quit();
     }
 }
