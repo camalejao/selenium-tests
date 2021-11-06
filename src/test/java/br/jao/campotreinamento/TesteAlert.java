@@ -1,22 +1,18 @@
 package br.jao.campotreinamento;
 
-import java.time.Duration;
-
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.Alert;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
+
+import br.jao.dsl.DSL;
 
 public class TesteAlert {
     
     private WebDriver driver;
+    private DSL dsl;
 
     @Before
     public void inicializaDriver() {
@@ -25,6 +21,7 @@ public class TesteAlert {
         
         String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
         driver.get(url);
+        dsl = new DSL(driver);
     }
 
     @After
@@ -34,76 +31,35 @@ public class TesteAlert {
 
     @Test
     public void deveInteragirComAlertSimples() {
-        WebElement alertButton = driver.findElement(By.id("alert"));
-        alertButton.click();
+        dsl.clicar("alert");
 
-        Alert alert = driver.switchTo().alert();
-
-        String alertText = alert.getText();
+        String alertText = dsl.obterTextoAceitandoAlert();
         Assert.assertEquals("Alert Simples", alertText);
-        alert.accept();
 
-        WebElement textField = driver.findElement(By.id("elementosForm:nome"));
-        textField.sendKeys(alertText);
-        Assert.assertEquals(alertText, textField.getAttribute("value"));
+        dsl.escreve("elementosForm:nome", alertText);
+        Assert.assertEquals(alertText, dsl.obterValorElemento("elementosForm:nome"));
     }
 
     @Test
     public void deveConfirmarAlerta() {
-        WebElement confirmButton = driver.findElement(By.id("confirm"));
-        confirmButton.click();
-
-        Alert confirmAlert = driver.switchTo().alert();
-
-        String confirmText = confirmAlert.getText();
-        Assert.assertEquals("Confirm Simples", confirmText);
-        confirmAlert.accept();
-
-        Alert alert = new WebDriverWait(driver, Duration.ofMillis(500))
-            .until(ExpectedConditions.alertIsPresent());
-
-        confirmText = alert.getText();
-        Assert.assertEquals("Confirmado", confirmText);
+        dsl.clicar("confirm");
+        Assert.assertEquals("Confirm Simples", dsl.obterTextoAceitandoAlert());
+        Assert.assertEquals("Confirmado", dsl.obterTextoAceitandoAlert());
     }
 
     @Test
     public void deveRejeitarAlerta() {
-        WebElement confirmButton = driver.findElement(By.id("confirm"));
-        confirmButton.click();
-
-        Alert confirmAlert = driver.switchTo().alert();
-
-        String confirmText = confirmAlert.getText();
-        Assert.assertEquals("Confirm Simples", confirmText);
-        confirmAlert.dismiss();
-
-        // espera explicita adicionada pois o selenium executava antes do alerta aparecer
-        Alert alert = new WebDriverWait(driver, Duration.ofMillis(500))
-            .until(ExpectedConditions.alertIsPresent());
-        
-        String alertText = alert.getText();
-        Assert.assertEquals("Negado", alertText);
+        dsl.clicar("confirm");
+        Assert.assertEquals("Confirm Simples", dsl.obterTextoRejeitandoAlert());
+        Assert.assertEquals("Negado", dsl.obterTextoRejeitandoAlert());
     }
 
     @Test
     public void deveInteragirComPrompt() {
-        WebElement promptButton = driver.findElement(By.id("prompt"));
-        promptButton.click();
-        Alert prompt = driver.switchTo().alert();
-
-        Assert.assertEquals("Digite um numero", prompt.getText());
-
-        prompt.sendKeys("42");
-        prompt.accept();
-        prompt = new WebDriverWait(driver, Duration.ofMillis(500))
-            .until(ExpectedConditions.alertIsPresent());
-
-        Assert.assertEquals("Era 42?", prompt.getText());
-
-        prompt.accept();
-        prompt = new WebDriverWait(driver, Duration.ofMillis(500))
-            .until(ExpectedConditions.alertIsPresent());
-
-        Assert.assertEquals(":D", prompt.getText());
+        dsl.clicar("prompt");
+        Assert.assertEquals("Digite um numero", dsl.obterTextoAlert());
+        dsl.escreverAlert("42");
+        Assert.assertEquals("Era 42?", dsl.obterTextoAceitandoAlert());
+        Assert.assertEquals(":D", dsl.obterTextoAceitandoAlert());
     }
 }

@@ -4,15 +4,16 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+
+import br.jao.dsl.DSL;
 
 public class TesteFramesEJanelas {
     
     private WebDriver driver;
+    private DSL dsl;
 
     @Before
     public void inicializaDriver() {
@@ -21,6 +22,7 @@ public class TesteFramesEJanelas {
         
         String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
         driver.get(url);
+        dsl = new DSL(driver);
     }
 
     @After
@@ -30,45 +32,43 @@ public class TesteFramesEJanelas {
 
     @Test
     public void deveInteragirComFrame() {
-        driver.switchTo().frame("frame1");
-        driver.findElement(By.id("frameButton")).click();
+        dsl.entrarFrame("frame1");
+        dsl.clicar("frameButton");
 
-        Alert alert = driver.switchTo().alert();
-        String msg = alert.getText();
+        String msg = dsl.obterTextoAceitandoAlert();
         Assert.assertEquals("Frame OK!", msg);
 
-        alert.dismiss();
-        driver.switchTo().defaultContent();
+        dsl.sairFrame();
         
-        WebElement text = driver.findElement(By.id("elementosForm:nome"));
-        text.sendKeys(msg);
-        
-        Assert.assertEquals("Frame OK!", text.getAttribute("value"));
+        dsl.escreve("elementosForm:nome", msg);
+        Assert.assertEquals("Frame OK!", dsl.obterValorElemento("elementosForm:nome"));
     }
 
     @Test
     public void deveInteragirComPopup() {
         String originalWindow = driver.getWindowHandle();
 
-        driver.findElement(By.id("buttonPopUpEasy")).click();
-        driver.switchTo().window("Popup");
-        driver.findElement(By.tagName("textarea")).sendKeys("Escrevendo no PopUp");
+        dsl.clicar("buttonPopUpEasy");
+        dsl.trocarJanela("Popup");
+
+        dsl.escreve(By.tagName("textarea"), "Escrevendo no PopUp");
         driver.close();
-        driver.switchTo().window(originalWindow);
-        driver.findElement(By.tagName("textarea")).sendKeys("E agora na janela principal");
+
+        dsl.trocarJanela(originalWindow);
+        dsl.escreve(By.tagName("textarea"), "E agora na janela principal");
     }
 
     @Test
     public void deveInteragirComPopupSemTitulo() {
         String originalWindow = driver.getWindowHandle();
 
-        driver.findElement(By.id("buttonPopUpHard")).click();
-        driver.switchTo().window((String) driver.getWindowHandles().toArray()[1]);
+        dsl.clicar("buttonPopUpHard");
+        dsl.trocarJanela((String) driver.getWindowHandles().toArray()[1]);
 
-        driver.findElement(By.tagName("textarea")).sendKeys("Escrevendo no PopUp");
+        dsl.escreve(By.tagName("textarea"), "Escrevendo no PopUp");
         
-        driver.switchTo().window(originalWindow);
-        driver.findElement(By.tagName("textarea")).sendKeys("E agora na janela principal");
+        dsl.trocarJanela(originalWindow);
+        dsl.escreve(By.tagName("textarea"), "E agora na janela principal");
     }
 
 }

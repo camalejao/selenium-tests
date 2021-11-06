@@ -4,14 +4,15 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.support.ui.Select;
+
+import br.jao.dsl.DSL;
 
 public class TesteCadastro {
     
     private WebDriver driver;
+    private DSL dsl;
 
     @Before
     public void inicializaDriver() {
@@ -20,6 +21,7 @@ public class TesteCadastro {
         
         String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
         driver.get(url);
+        dsl = new DSL(driver);
     }
 
     @After
@@ -30,35 +32,25 @@ public class TesteCadastro {
     @Test
     public void deveRealizarCadastro() {
         // Nome
-        driver.findElement(By.id("elementosForm:nome")).sendKeys("João");
-
+        dsl.escreve("elementosForm:nome", "João");
         // Sobrenome
-        driver.findElement(By.id("elementosForm:sobrenome")).sendKeys("Falcão");
-
+        dsl.escreve("elementosForm:sobrenome", "Falcão");
         // Sexo
-        driver.findElement(By.id("elementosForm:sexo:0")).click();
-        
+        dsl.clicar("elementosForm:sexo:0");
         // Comidas Favoritas
-        driver.findElement(By.id("elementosForm:comidaFavorita:2")).click();
-        driver.findElement(By.id("elementosForm:comidaFavorita:0")).click();
-        
+        dsl.clicar("elementosForm:comidaFavorita:0");
+        dsl.clicar("elementosForm:comidaFavorita:2");
         // Escolaridade
-        Select selectEscolaridade = new Select(driver.findElement(By.id("elementosForm:escolaridade")));
-        selectEscolaridade.selectByVisibleText("2o grau completo");
-
+        dsl.selecionarComboPorTextoVisivel("elementosForm:escolaridade", "2o grau completo");
         // Esportes
-        Select selectEsportes = new Select(driver.findElement(By.id("elementosForm:esportes")));
-        selectEsportes.selectByVisibleText("Corrida");
-        selectEsportes.selectByVisibleText("Natacao");
-        
+        dsl.selecionarComboPorTextoVisivel("elementosForm:esportes", "Corrida");
+        dsl.selecionarComboPorTextoVisivel("elementosForm:esportes", "Natacao");
         // Sugestões
-        driver.findElement(By.id("elementosForm:sugestoes")).sendKeys("Melhorar Alimentação");
-        
+        dsl.escreve("elementosForm:sugestoes", "Melhorar Alimentação");
         // Clicar em Cadastrar
-        driver.findElement(By.id("elementosForm:cadastrar")).click();
+        dsl.clicar("elementosForm:cadastrar");
 
         // Verifica Cadastro (Completo, não-ideal)
-        String txt = driver.findElement(By.id("resultado")).getText();
         Assert.assertEquals("Cadastrado!" + 
             "\nNome: João" +
             "\nSobrenome: Falcão" +
@@ -66,17 +58,25 @@ public class TesteCadastro {
             "\nComida: Carne Pizza" +
             "\nEscolaridade: 2graucomp" +
             "\nEsportes: Natacao Corrida" +
-            "\nSugestoes: Melhorar Alimentação", txt);
+            "\nSugestoes: Melhorar Alimentação", dsl.obterTexto("resultado"));
         
         // Verificando cada campo individualmente (ainda não-ideal)
-        Assert.assertTrue(driver.findElement(By.id("resultado")).getText().startsWith("Cadastrado!"));
-        Assert.assertTrue(driver.findElement(By.id("descNome")).getText().endsWith("João"));
-        Assert.assertTrue(driver.findElement(By.id("descSobrenome")).getText().endsWith("Falcão"));
-        Assert.assertTrue(driver.findElement(By.id("descSexo")).getText().endsWith("Masculino"));
-        Assert.assertTrue(driver.findElement(By.id("descComida")).getText().endsWith("Carne Pizza"));
-        Assert.assertTrue(driver.findElement(By.id("descEscolaridade")).getText().endsWith("2graucomp"));
-        Assert.assertTrue(driver.findElement(By.id("descEsportes")).getText().endsWith("Natacao Corrida"));
-        Assert.assertTrue(driver.findElement(By.id("descSugestoes")).getText().endsWith("Melhorar Alimentação"));
+        Assert.assertTrue(dsl.obterTexto("resultado").startsWith("Cadastrado!"));
+        Assert.assertTrue(dsl.obterTexto("descNome").endsWith("João"));
+        Assert.assertTrue(dsl.obterTexto("descSobrenome").endsWith("Falcão"));
+        Assert.assertTrue(dsl.obterTexto("descSexo").endsWith("Masculino"));
+        Assert.assertTrue(dsl.obterTexto("descComida").endsWith("Carne Pizza"));
+        Assert.assertTrue(dsl.obterTexto("descEscolaridade").endsWith("2graucomp"));
+        Assert.assertTrue(dsl.obterTexto("descEsportes").endsWith("Natacao Corrida"));
+        Assert.assertTrue(dsl.obterTexto("descSugestoes").endsWith("Melhorar Alimentação"));
+    }
+
+    @Test
+    public void deveReescreverNome() {
+        dsl.escreve("elementosForm:nome", "João");
+        Assert.assertEquals("João", dsl.obterValorElemento("elementosForm:nome"));
+        dsl.escreve("elementosForm:nome", "Victor");
+        Assert.assertEquals("Victor", dsl.obterValorElemento("elementosForm:nome"));
     }
 
 }
