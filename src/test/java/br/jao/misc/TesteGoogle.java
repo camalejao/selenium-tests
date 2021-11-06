@@ -1,4 +1,4 @@
-package br.jao;
+package br.jao.misc;
 
 import org.junit.Assert;
 import org.junit.Test;

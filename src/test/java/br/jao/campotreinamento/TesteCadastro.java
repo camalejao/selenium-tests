@@ -1,4 +1,4 @@
-package br.jao;
+package br.jao.campotreinamento;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class TesteCTCadastro {
+public class TesteCadastro {
     
     @Test
     public void deveRealizarCadastro() {

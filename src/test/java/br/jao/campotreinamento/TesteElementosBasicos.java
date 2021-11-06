@@ -1,4 +1,4 @@
-package br.jao;
+package br.jao.campotreinamento;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,7 +12,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class TesteCTElementosBasicos {
+public class TesteElementosBasicos {
     
     @Test
     public void testeTextField() {

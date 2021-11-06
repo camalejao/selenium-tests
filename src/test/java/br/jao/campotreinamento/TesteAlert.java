@@ -1,4 +1,4 @@
-package br.jao;
+package br.jao.campotreinamento;
 
 import java.time.Duration;
 
@@ -12,7 +12,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class TesteCTAlert {
+public class TesteAlert {
     
     @Test
     public void deveInteragirComAlertSimples() {
