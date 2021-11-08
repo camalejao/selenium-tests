@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.openqa.selenium.Alert;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -162,5 +163,10 @@ public class DSL {
 
     public void trocarJanela(String idJanela) {
         driver.switchTo().window(idJanela);
+    }
+
+    public Object executarJS(String script, Object... param) {
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        return js.executeScript(script, param);
     }
 }

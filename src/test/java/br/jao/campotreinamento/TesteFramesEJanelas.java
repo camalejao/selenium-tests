@@ -71,4 +71,13 @@ public class TesteFramesEJanelas {
         dsl.escreve(By.tagName("textarea"), "E agora na janela principal");
     }
 
+    @Test
+    public void deveInteragirComFrameEscondido() {
+        dsl.executarJS("window.scrollBy(0, arguments[0])", driver.findElement(By.id("frame2")).getLocation().getY());
+        dsl.entrarFrame("frame2");
+        dsl.clicar("frameButton");
+        String msg = dsl.obterTextoAceitandoAlert();
+        Assert.assertEquals("Frame OK!", msg);
+    }
+
 }
