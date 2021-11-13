@@ -208,4 +208,17 @@ public class DSL {
 
         return indexLinha;
     }
+
+    public String getElementId(By by) {
+        return driver.findElement(by).getAttribute("id");
+    }
+
+    public void selecionarComboPrime(String radical, String textoOpcao) {
+        clicar(By.xpath("//*[@id='" + radical + "']//label"));
+        clicar(By.xpath("//*[@id='" + radical + "_items']//li[.='" + textoOpcao + "']"));
+    }
+
+    public String obterValorComboPrime(String radical) {
+        return obterTexto(By.xpath("//*[@id='" + radical + "']//label"));
+    }
 }
