@@ -123,4 +123,10 @@ public class TesteElementosBasicos {
         dsl.executarJS("arguments[0].style.border = arguments[1]", driver.findElement(By.id("elementosForm:nome")), "solid 4px red");
         dsl.executarJS("alert('Usando JS via Selenium')");
     }
+
+    @Test
+    public void deveCliclarBotaoTabela() {
+        dsl.clicarBotaoTabela("Escolaridade", "Mestrado", "Botao", "elementosForm:tableUsuarios");
+    }
+
 }

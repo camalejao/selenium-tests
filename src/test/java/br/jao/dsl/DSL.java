@@ -169,4 +169,43 @@ public class DSL {
         JavascriptExecutor js = (JavascriptExecutor) driver;
         return js.executeScript(script, param);
     }
+
+    public void clicarBotaoTabela(String tituloColuna, String textoLinha, String tituloColunaBotao, String idTabela) {
+        WebElement tabela = driver.findElement(By.xpath("//*[@id='" + idTabela + "']"));
+        
+        int indexColuna = obterIndiceColuna(tituloColuna, tabela);
+        int indexLinha = obterIndiceLinha(textoLinha, tabela, indexColuna);
+        int indexColunaBotao = obterIndiceColuna(tituloColunaBotao, tabela);
+
+        WebElement celula = tabela.findElement(By.xpath("./tbody/tr[" + indexLinha + "]/td[" + indexColunaBotao + "]"));
+        celula.findElement(By.xpath(".//input")).click();
+    }
+
+    private int obterIndiceColuna(String tituloColuna, WebElement tabela) {
+        List<WebElement> colunas = tabela.findElements(By.xpath(".//th"));
+        int indexColuna = -1;
+        
+        for (int i = 0; i < colunas.size(); i++) {
+            if (colunas.get(i).getText().equals(tituloColuna)) {
+                indexColuna = i + 1; // xpath é indexado a partir de 1
+                break;
+            }
+        }
+
+        return indexColuna;
+    }
+
+    private int obterIndiceLinha(String textoLinha, WebElement tabela, int indexColuna) {
+        List<WebElement> linhas = tabela.findElements(By.xpath("./tbody/tr/td[" + indexColuna + "]"));
+        int indexLinha = -1;
+        
+        for (int i = 0; i < linhas.size(); i++) {
+            if (linhas.get(i).getText().equals(textoLinha)) {
+                indexLinha = i + 1; // xpath é indexado a partir de 1
+                break;
+            }
+        }
+
+        return indexLinha;
+    }
 }

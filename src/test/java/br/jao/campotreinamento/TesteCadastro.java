@@ -42,25 +42,15 @@ public class TesteCadastro {
         page.setSugestoes("Melhorar Alimentação");
         page.cadastrar();
 
-        // Verifica Cadastro (Completo, não-ideal)
-        Assert.assertEquals("Cadastrado!" + 
-            "\nNome: João" +
-            "\nSobrenome: Falcão" +
-            "\nSexo: Masculino" +
-            "\nComida: Carne Pizza" +
-            "\nEscolaridade: 2graucomp" +
-            "\nEsportes: Natacao Corrida" +
-            "\nSugestoes: Melhorar Alimentação", page.obterResultadoCadastro());
-        
-        // Verificando cada campo individualmente (ainda não-ideal)
-        Assert.assertTrue(page.obterResultadoCadastro().startsWith("Cadastrado!"));
-        Assert.assertTrue(page.obterNomeCadastro().endsWith("João"));
-        Assert.assertTrue(page.obterSobrenomeCadastro().endsWith("Falcão"));
-        Assert.assertTrue(page.obterSexoCadastro().endsWith("Masculino"));
-        Assert.assertTrue(page.obterComidaCadastro().endsWith("Carne Pizza"));
-        Assert.assertTrue(page.obterEscolaridadeCadastro().endsWith("2graucomp"));
-        Assert.assertTrue(page.obterEsportesCadastro().endsWith("Natacao Corrida"));
-        Assert.assertTrue(page.obterSugestoesCadastro().endsWith("Melhorar Alimentação"));
+        // Verificando cada campo individualmente com xpath
+        Assert.assertEquals(page.obterResultadoCadastro(), "Cadastrado!");
+        Assert.assertEquals(page.obterNomeCadastro(), "João");
+        Assert.assertEquals(page.obterSobrenomeCadastro(), "Falcão");
+        Assert.assertEquals(page.obterSexoCadastro(), "Masculino");
+        Assert.assertEquals(page.obterComidaCadastro(), "Carne Pizza");
+        Assert.assertEquals(page.obterEscolaridadeCadastro(), "2graucomp");
+        Assert.assertEquals(page.obterEsportesCadastro(), "Natacao Corrida");
+        Assert.assertEquals(page.obterSugestoesCadastro(), "Melhorar Alimentação");
     }
 
     @Test

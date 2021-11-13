@@ -1,0 +1,52 @@
+1. Textfield: Nome
+
+//input[@id='elementosForm:nome']
+
+(//input)[6]
+
+//input[@name='elementosForm:nome']
+
+2. Radio: Sexo Feminino (sem usar id)
+
+//input[@name='elementosForm:sexo' and @value="F"]
+
+//label[contains(text(), "Feminino")]/../input
+
+3. Label "Pizza" (sem busca de texto)
+
+//input[@id="elementosForm:comidaFavorita:2"]/../label
+
+//input[@id="elementosForm:comidaFavorita:2"]/following-sibling::label
+
+//table[@id="elementosForm:comidaFavorita"]//td[3]/label
+
+4. "Usuario B" da tabela sem header
+
+//table[@id="tabelaSemJSF"]//tr[3]//td[1]
+
+//table[@id="tabelaSemJSF"]//td[.="Usuario B"]
+
+5. Botão do elemento cujo nome é "Maria"
+
+//table[@id="elementosForm:tableUsuarios"]//td[.="Maria"]/..//input[@type="button"]
+
+6. Radio do elemento cujo nome e escolaridade seja "Doutorado"
+
+//table[@id="elementosForm:tableUsuarios"]//td/following-sibling::td[.='Doutorado']//preceding-sibling::td[.='Doutorado']/..//input[@type="radio"]
+
+//table[@id="elementosForm:tableUsuarios"]//td[1][.='Doutorado']/..//td[2][.='Doutorado']/..//input[@type="radio"]
+
+//table[@id="elementosForm:tableUsuarios"]//td[1][.='Doutorado']/following-sibling::td[.='Doutorado']/..//input[@type="radio"]
+
+7. Textfield do segundo elemento com escolaridade "Superior"
+
+//table[@id="elementosForm:tableUsuarios"]//td/following-sibling::td[.='Superior']//preceding-sibling::td[.='Usuario B']/..//input[@type="text"]
+
+//table[@id="elementosForm:tableUsuarios"]//td[.="Superior"]//preceding-sibling::td[.='Usuario B']/..//input[@type="text"]
+
+//table[@id="elementosForm:tableUsuarios"]//td[2][.="Superior"]//preceding-sibling::td[.='Usuario B']/..//input[@type="text"]
+
+(//table[@id="elementosForm:tableUsuarios"]//td[.="Superior"])[2]/..//input[@type="text"]
+
+(//table[@id="elementosForm:tableUsuarios"]//td[2][.="Superior"])[2]/..//input[@type="text"]
+
