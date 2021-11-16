@@ -7,30 +7,26 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
-import br.jao.dsl.DSL;
+import br.jao.core.DSL;
+import static br.jao.core.DriverFactory.getDriver;
+import static br.jao.core.DriverFactory.killDriver;
 
 public class TesteElementosBasicos {
     
-    private WebDriver driver;
     private DSL dsl;
 
     @Before
     public void inicializaDriver() {
-        driver = new FirefoxDriver();
-        // WebDriver driver = new ChromeDriver();
-        
         String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
-        driver.get(url);
-        dsl = new DSL(driver);
+        getDriver().get(url);
+        dsl = new DSL();
     }
 
     @After
     public void finalizaDriver() {
-        driver.quit();
+        killDriver();
     }
 
     @Test
@@ -120,7 +116,7 @@ public class TesteElementosBasicos {
     public void testeJavascript() {
         dsl.executarJS("document.getElementById('elementosForm:nome').value = 'Escrito com JS'");
         dsl.executarJS("document.getElementById('elementosForm:sobrenome').type = 'radio'");
-        dsl.executarJS("arguments[0].style.border = arguments[1]", driver.findElement(By.id("elementosForm:nome")), "solid 4px red");
+        dsl.executarJS("arguments[0].style.border = arguments[1]", getDriver().findElement(By.id("elementosForm:nome")), "solid 4px red");
         dsl.executarJS("alert('Usando JS via Selenium')");
     }
 

@@ -6,31 +6,27 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import br.jao.dsl.DSL;
+import br.jao.core.DSL;
+import static br.jao.core.DriverFactory.getDriver;
+import static br.jao.core.DriverFactory.killDriver;
 
 public class TesteSincronismo {
     
-    private WebDriver driver;
     private DSL dsl;
 
     @Before
     public void inicializaDriver() {
-        driver = new FirefoxDriver();
-        // WebDriver driver = new ChromeDriver();
-        
         String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
-        driver.get(url);
-        dsl = new DSL(driver);
+        getDriver().get(url);
+        dsl = new DSL();
     }
 
     @After
     public void finalizaDriver() {
-        driver.quit();
+        killDriver();
     }
 
     @Test
@@ -42,16 +38,16 @@ public class TesteSincronismo {
 
     @Test
     public void deveUtilizarEsperaImplicita() {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         dsl.clicar("buttonDelay");
         dsl.escreve("novoCampo", "Deu certo?");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
+        getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(0));
     }
 
     @Test
     public void deveUtilizarEsperaExplicita() {
         dsl.clicar("buttonDelay");
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
         wait.until(ExpectedConditions.presenceOfElementLocated(By.id("novoCampo")));
         dsl.escreve("novoCampo", "Deu certo?");
     }

@@ -5,29 +5,25 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
-import br.jao.dsl.DSL;
+import br.jao.core.DSL;
+import static br.jao.core.DriverFactory.getDriver;
+import static br.jao.core.DriverFactory.killDriver;
 
 public class TesteFramesEJanelas {
     
-    private WebDriver driver;
     private DSL dsl;
 
     @Before
     public void inicializaDriver() {
-        driver = new FirefoxDriver();
-        // WebDriver driver = new ChromeDriver();
-        
         String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
-        driver.get(url);
-        dsl = new DSL(driver);
+        getDriver().get(url);
+        dsl = new DSL();
     }
 
     @After
     public void finalizaDriver() {
-        driver.quit();
+        killDriver();
     }
 
     @Test
@@ -46,13 +42,13 @@ public class TesteFramesEJanelas {
 
     @Test
     public void deveInteragirComPopup() {
-        String originalWindow = driver.getWindowHandle();
+        String originalWindow = getDriver().getWindowHandle();
 
         dsl.clicar("buttonPopUpEasy");
         dsl.trocarJanela("Popup");
 
         dsl.escreve(By.tagName("textarea"), "Escrevendo no PopUp");
-        driver.close();
+        getDriver().close();
 
         dsl.trocarJanela(originalWindow);
         dsl.escreve(By.tagName("textarea"), "E agora na janela principal");
@@ -60,10 +56,10 @@ public class TesteFramesEJanelas {
 
     @Test
     public void deveInteragirComPopupSemTitulo() {
-        String originalWindow = driver.getWindowHandle();
+        String originalWindow = getDriver().getWindowHandle();
 
         dsl.clicar("buttonPopUpHard");
-        dsl.trocarJanela((String) driver.getWindowHandles().toArray()[1]);
+        dsl.trocarJanela((String) getDriver().getWindowHandles().toArray()[1]);
 
         dsl.escreve(By.tagName("textarea"), "Escrevendo no PopUp");
         
@@ -73,7 +69,7 @@ public class TesteFramesEJanelas {
 
     @Test
     public void deveInteragirComFrameEscondido() {
-        dsl.executarJS("window.scrollBy(0, arguments[0])", driver.findElement(By.id("frame2")).getLocation().getY());
+        dsl.executarJS("window.scrollBy(0, arguments[0])", getDriver().findElement(By.id("frame2")).getLocation().getY());
         dsl.entrarFrame("frame2");
         dsl.clicar("frameButton");
         String msg = dsl.obterTextoAceitandoAlert();

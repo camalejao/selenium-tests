@@ -12,16 +12,15 @@ import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
 
-import br.jao.dsl.DSL;
+import br.jao.core.DSL;
+import static br.jao.core.DriverFactory.getDriver;
+import static br.jao.core.DriverFactory.killDriver;
 import br.jao.pageobjects.CampoTreinamentoPage;
 
 @RunWith(Parameterized.class)
 public class TesteRegrasCadastro {
 
-    private WebDriver driver;
     private CampoTreinamentoPage page;
     private DSL dsl;
 
@@ -40,18 +39,15 @@ public class TesteRegrasCadastro {
 
     @Before
     public void inicializaDriver() {
-        driver = new FirefoxDriver();
-        // WebDriver driver = new ChromeDriver();
-        
         String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
-        driver.get(url);
-        dsl = new DSL(driver);
-        page = new CampoTreinamentoPage(driver);
+        getDriver().get(url);
+        dsl = new DSL();
+        page = new CampoTreinamentoPage();
     }
 
     @After
     public void finalizaDriver() {
-        driver.quit();
+        killDriver();
     }
     
     @Parameters
