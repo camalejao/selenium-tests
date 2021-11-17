@@ -1,17 +1,11 @@
-package br.jao.pageobjects;
+package br.jao.page;
 
 import org.openqa.selenium.By;
 
-import br.jao.core.DSL;
+import br.jao.core.BasePage;
 
-public class CampoTreinamentoPage {
+public class CampoTreinamentoPage extends BasePage {
     
-    private DSL dsl;
-
-    public CampoTreinamentoPage() {
-        dsl = new DSL();
-    }
-
     public void setNome(String nome) {
         dsl.escreve("elementosForm:nome", nome);
     }

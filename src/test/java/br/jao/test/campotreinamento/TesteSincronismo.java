@@ -1,4 +1,4 @@
-package br.jao.campotreinamento;
+package br.jao.test.campotreinamento;
 
 import java.time.Duration;
 

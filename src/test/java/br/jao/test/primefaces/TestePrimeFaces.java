@@ -1,4 +1,4 @@
-package br.jao.campotreinamento;
+package br.jao.test.primefaces;
 
 import org.junit.After;
 import org.junit.Assert;

@@ -1,15 +1,15 @@
-package br.jao.campotreinamento;
+package br.jao.test.campotreinamento;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
-import static br.jao.core.DriverFactory.getDriver;
-import static br.jao.core.DriverFactory.killDriver;
-import br.jao.pageobjects.CampoTreinamentoPage;
+import br.jao.core.BaseTest;
+import br.jao.page.CampoTreinamentoPage;
 
-public class TesteCadastro {
+import static br.jao.core.DriverFactory.getDriver;
+
+public class TesteCadastro extends BaseTest {
     
     private CampoTreinamentoPage page;
 
@@ -18,11 +18,6 @@ public class TesteCadastro {
         String url = "file:///" + System.getProperty("user.dir") + "/src/test/resources/componentes.html";
         getDriver().get(url);
         page = new CampoTreinamentoPage();
-    }
-
-    @After
-    public void finalizaDriver() {
-        killDriver();
     }
 
     @Test

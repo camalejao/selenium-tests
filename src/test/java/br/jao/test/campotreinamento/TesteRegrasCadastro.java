@@ -1,10 +1,9 @@
-package br.jao.campotreinamento;
+package br.jao.test.campotreinamento;
 
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
-import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -13,13 +12,14 @@ import org.junit.runners.Parameterized;
 import org.junit.runners.Parameterized.Parameter;
 import org.junit.runners.Parameterized.Parameters;
 
+import br.jao.core.BaseTest;
 import br.jao.core.DSL;
+import br.jao.page.CampoTreinamentoPage;
+
 import static br.jao.core.DriverFactory.getDriver;
-import static br.jao.core.DriverFactory.killDriver;
-import br.jao.pageobjects.CampoTreinamentoPage;
 
 @RunWith(Parameterized.class)
-public class TesteRegrasCadastro {
+public class TesteRegrasCadastro extends BaseTest {
 
     private CampoTreinamentoPage page;
     private DSL dsl;
@@ -43,11 +43,6 @@ public class TesteRegrasCadastro {
         getDriver().get(url);
         dsl = new DSL();
         page = new CampoTreinamentoPage();
-    }
-
-    @After
-    public void finalizaDriver() {
-        killDriver();
     }
     
     @Parameters
