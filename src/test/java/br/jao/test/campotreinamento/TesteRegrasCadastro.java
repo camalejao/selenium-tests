@@ -74,7 +74,7 @@ public class TesteRegrasCadastro extends BaseTest {
 
         page.cadastrar();
 
-        Assert.assertEquals(msg, dsl.obterTextoAlert());
+        Assert.assertEquals(msg, dsl.obterTextoAceitandoAlert());
     }
 
 }
