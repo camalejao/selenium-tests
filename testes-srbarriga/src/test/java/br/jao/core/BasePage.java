@@ -65,6 +65,14 @@ public class BasePage {
         getDriver().findElement(by).click();
     }
 
+    public void clicarBotaoPorTexto(String texto) {
+        clicar(By.xpath("//button[.='" + texto + "']"));
+    }
+
+    public void clicarLink(String textoLink) {
+        clicar(By.linkText(textoLink));
+    }
+
     public boolean verificaMarcado(String idElemento) {
         return getDriver().findElement(By.id(idElemento)).isSelected();
     }

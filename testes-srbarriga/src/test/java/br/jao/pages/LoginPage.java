@@ -1,7 +1,5 @@
 package br.jao.pages;
 
-import org.openqa.selenium.By;
-
 import br.jao.core.BasePage;
 import br.jao.core.DriverFactory;
 
@@ -20,7 +18,7 @@ public class LoginPage extends BasePage {
     }
 
     public void clicarBotaoLogin() {
-        clicar(By.xpath("//button[.='Entrar']"));
+        clicarBotaoPorTexto("Entrar");
     }
 
     public void realizarLogin(String email, String senha) {
