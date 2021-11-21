@@ -11,4 +11,9 @@ public class MenuPage extends BasePage {
         clicar(By.linkText("Adicionar"));
     }
 
+    public void clicarLinkListarContas() {
+        clicar(By.linkText("Contas"));
+        clicar(By.linkText("Listar"));
+    }
+
 }

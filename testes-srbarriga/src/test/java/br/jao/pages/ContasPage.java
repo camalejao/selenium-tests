@@ -18,4 +18,9 @@ public class ContasPage extends BasePage {
         return obterTexto(By.xpath("//div[@class='alert alert-success' and @role='alert']"));
     }
 
+    public void clicarEditarConta(String nomeConta) {
+        String xpathExp = "//table[@id='tabelaContas']//td[.='" +
+            nomeConta + "']/../td//a[1]";
+        clicar(By.xpath(xpathExp));
+    }
 }
