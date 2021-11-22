@@ -9,4 +9,8 @@ public class HomePage extends BasePage {
     public String getMensagemBemVindo() {
         return obterTexto(By.xpath("//div[contains(text(), 'Bem vindo')]"));
     }
+
+    public String obterSaldoConta(String nomeConta) {
+        return obterCelulaTabela("Conta", nomeConta, "Saldo", "tabelaSaldo").getText();
+    }
 }

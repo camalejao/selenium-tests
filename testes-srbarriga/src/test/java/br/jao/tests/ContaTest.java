@@ -39,4 +39,11 @@ public class ContaTest extends BaseTest {
         Assert.assertEquals("Já existe uma conta com esse nome!", contasPage.getMensagemErro());
     }
 
+    @Test
+    public void testaExcluirContaComMovimentacao() {
+        menuPage.clicarLinkListarContas();
+        contasPage.clicarExcluirConta("conta editada");
+        Assert.assertEquals("Conta em uso na movimentações", contasPage.getMensagemErro());
+    }
+
 }

@@ -248,4 +248,8 @@ public class BasePage {
     public String obterAtributo(By by, String atributo) {
         return getDriver().findElement(by).getAttribute(atributo);
     }
+
+    public String obterTitulo() {
+        return getDriver().getTitle();
+    }
 }

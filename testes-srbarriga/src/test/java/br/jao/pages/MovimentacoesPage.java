@@ -1,8 +1,13 @@
 package br.jao.pages;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import br.jao.core.BasePage;
+import br.jao.core.DriverFactory;
 
 public class MovimentacoesPage extends BasePage {
     
@@ -48,5 +53,18 @@ public class MovimentacoesPage extends BasePage {
 
     public String getMensagemSucesso() {
         return obterTexto(By.xpath("//div[@class='alert alert-success' and @role='alert']"));
+    }
+
+    public List<String> getMensagensErro() {
+        List<WebElement> erros = DriverFactory.getDriver().findElements(
+            By.xpath("//div[@class='alert alert-danger' and @role='alert']//li"));
+        
+        List<String> mensagensErro = new ArrayList<>();
+        
+        for (WebElement erro : erros) {
+            mensagensErro.add(erro.getText());
+        }
+        
+        return mensagensErro;
     }
 }

@@ -32,4 +32,10 @@ public class ContasPage extends BasePage {
     public String getMensagemErro() {
         return obterTexto(By.xpath("//div[@class='alert alert-danger' and @role='alert']"));
     }
+
+    public void clicarExcluirConta(String nomeConta) {
+        String xpathExp = "//table[@id='tabelaContas']//td[.='" +
+            nomeConta + "']/../td//a[2]";
+        clicar(By.xpath(xpathExp));
+    }
 }

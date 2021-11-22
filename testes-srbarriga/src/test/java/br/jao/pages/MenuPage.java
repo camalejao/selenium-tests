@@ -1,5 +1,7 @@
 package br.jao.pages;
 
+import org.openqa.selenium.By;
+
 import br.jao.core.BasePage;
 
 public class MenuPage extends BasePage {
@@ -16,6 +18,14 @@ public class MenuPage extends BasePage {
 
     public void clicarLinkCriarMovimentacao() {
         clicarLink("Criar Movimentação");
+    }
+
+    public void clicarLinkResumoMensal() {
+        clicarLink("Resumo Mensal");
+    }
+
+    public String getMensagemSucesso() {
+        return obterTexto(By.xpath("//div[@class='alert alert-success' and @role='alert']"));
     }
 
 }
