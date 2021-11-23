@@ -1,12 +1,15 @@
 package br.jao.tests;
 
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import br.jao.core.BaseTest;
 import br.jao.pages.MenuPage;
 import br.jao.pages.ResumoPage;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class ResumoTest extends BaseTest {
     
     private MenuPage menuPage = new MenuPage();
@@ -21,9 +24,10 @@ public class ResumoTest extends BaseTest {
     }
 
     @Test
-    public void verificaResumoMensal() {
+    public void verificaResumoMensalVazio() {
         menuPage.clicarLinkResumoMensal();
         Assert.assertEquals("Seu Barriga - Extrato", resPage.obterTitulo());
+        Assert.assertEquals(0, resPage.obterQuantidadeMovimentacoes());
     }
 
 }

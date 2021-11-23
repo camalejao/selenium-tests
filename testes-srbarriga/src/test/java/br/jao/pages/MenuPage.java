@@ -28,4 +28,8 @@ public class MenuPage extends BasePage {
         return obterTexto(By.xpath("//div[@class='alert alert-success' and @role='alert']"));
     }
 
+    public void clicarLinkHome() {
+        clicarLink("Home");
+    }
+
 }

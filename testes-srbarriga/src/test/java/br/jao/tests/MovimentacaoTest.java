@@ -8,12 +8,16 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.junit.Assert;
+import org.junit.FixMethodOrder;
 import org.junit.Test;
+import org.junit.runners.MethodSorters;
 
 import br.jao.core.BaseTest;
+import br.jao.core.Properties;
 import br.jao.pages.MenuPage;
 import br.jao.pages.MovimentacoesPage;
 
+@FixMethodOrder(MethodSorters.NAME_ASCENDING)
 public class MovimentacaoTest extends BaseTest {
     
     private MenuPage menuPage = new MenuPage();
@@ -28,7 +32,7 @@ public class MovimentacaoTest extends BaseTest {
         movPage.setDescricao("Depósito Teste");
         movPage.setInteressado("João");
         movPage.setValor("400");
-        movPage.setConta("conta editada");
+        movPage.setConta(Properties.NOME_CONTA_ALT);
         movPage.setSituacaoPago();
         movPage.clicarSalvar();
 
@@ -65,7 +69,7 @@ public class MovimentacaoTest extends BaseTest {
         movPage.setDescricao("Teste Movimentação Futura");
         movPage.setInteressado("João");
         movPage.setValor("800");
-        movPage.setConta("conta editada");
+        movPage.setConta(Properties.NOME_CONTA_ALT);
         movPage.setSituacaoPendente();
         movPage.clicarSalvar();
 
