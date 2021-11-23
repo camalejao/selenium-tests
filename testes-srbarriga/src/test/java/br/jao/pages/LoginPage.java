@@ -27,4 +27,8 @@ public class LoginPage extends BasePage {
         clicarBotaoLogin();
     }
 
+    public void reset() {
+        clicarLink("reset");
+    }
+
 }

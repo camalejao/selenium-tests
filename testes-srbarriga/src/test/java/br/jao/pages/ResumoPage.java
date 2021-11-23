@@ -14,11 +14,19 @@ public class ResumoPage extends BasePage {
         clicar(By.xpath("//span[@class='glyphicon glyphicon-remove-circle']"));
     }
 
+    public void selecionarAno(String ano) {
+        selecionarComboPorTextoVisivel("ano", ano);
+    }
+
     public int obterQuantidadeMovimentacoes() {
         List<WebElement> movimentacoes = DriverFactory.getDriver().findElements(By.xpath(
             "//table[@id='tabelaExtrato']/tbody/tr"
         ));
         return movimentacoes.size();
+    }
+
+    public void clicarBuscar() {
+        clicar(By.xpath("//input[@value='Buscar']"));
     }
 
 }

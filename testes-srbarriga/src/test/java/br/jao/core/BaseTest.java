@@ -2,10 +2,13 @@ package br.jao.core;
 
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.rules.TestName;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
+
+import br.jao.pages.LoginPage;
 
 import static br.jao.core.DriverFactory.getDriver;
 import static br.jao.core.DriverFactory.killDriver;
@@ -18,6 +21,13 @@ public class BaseTest {
     @Rule
     public TestName testName = new TestName();
 
+    private LoginPage page = new LoginPage();
+    
+    @Before
+    public void inicializaTestes() {
+        page.acessarTelaInicial();
+        page.realizarLogin("joao@falcao", "123456");
+    }
 
     @After
     public void finalizaDriver() throws IOException {

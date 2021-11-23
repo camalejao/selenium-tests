@@ -4,7 +4,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import br.jao.core.BaseTest;
-import br.jao.core.Properties;
 import br.jao.pages.HomePage;
 import br.jao.pages.MenuPage;
 
@@ -16,7 +15,7 @@ public class SaldoTest extends BaseTest {
     @Test
     public void deveConferirSaldoConta() {
         menuPage.clicarLinkHome();
-        Assert.assertEquals("400.00", page.obterSaldoConta(Properties.NOME_CONTA_ALT));
+        Assert.assertEquals("534.00", page.obterSaldoConta("Conta para saldo"));
     }
 
 }
