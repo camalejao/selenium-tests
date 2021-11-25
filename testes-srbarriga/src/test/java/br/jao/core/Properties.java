@@ -6,16 +6,18 @@ public class Properties {
 
     public static Browsers BROWSER = Browsers.CHROME;
 
-    public static TipoExecucao TIPO_EXECUCAO = TipoExecucao.GRID;
+    public static TipoExecucao TIPO_EXECUCAO = TipoExecucao.NUVEM;
 
     public enum Browsers {
         CHROME,
-        FIREFOX
+        FIREFOX,
+        IE
     }
 
     public enum TipoExecucao {
         LOCAL,
-        GRID
+        GRID,
+        NUVEM
     }
 
 }
