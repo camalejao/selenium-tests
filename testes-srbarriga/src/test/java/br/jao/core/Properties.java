@@ -4,11 +4,18 @@ public class Properties {
     
     public static boolean QUIT_BROWSER = true;
 
-    public static Browsers browser = Browsers.CHROME;
+    public static Browsers BROWSER = Browsers.CHROME;
+
+    public static TipoExecucao TIPO_EXECUCAO = TipoExecucao.GRID;
 
     public enum Browsers {
         CHROME,
         FIREFOX
+    }
+
+    public enum TipoExecucao {
+        LOCAL,
+        GRID
     }
 
 }
