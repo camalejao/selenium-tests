@@ -45,7 +45,7 @@ public class TesteRegrasCadastro extends BaseTest {
         page = new CampoTreinamentoPage();
     }
     
-    @Parameters
+    @Parameters(name="Cenário {index}: {5}")
     public static Collection<Object[]> getCollection() {
         return Arrays.asList(new Object[][] {
             {"", "", "", Arrays.asList(), new String[]{}, "Nome eh obrigatorio"},
