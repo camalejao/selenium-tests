@@ -32,20 +32,20 @@ public class TesteAjax {
 
     @Test
     public void testeAjax() {
-        dsl.escreve("j_idt304:name", "Teste");
-        dsl.clicar("j_idt304:j_idt308");
+        dsl.escreve("j_idt311:name", "Teste");
+        dsl.clicar("j_idt311:j_idt315");
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.textToBe(By.id("j_idt304:display"), "Teste"));
-        Assert.assertEquals("Teste", dsl.obterTexto("j_idt304:display"));
+        wait.until(ExpectedConditions.textToBe(By.id("j_idt311:display"), "Teste"));
+        Assert.assertEquals("Teste", dsl.obterTexto("j_idt311:display"));
     }
 
     @Test
     public void testeAlternativo() {
-        dsl.escreve("j_idt304:name", "Teste");
-        dsl.clicar("j_idt304:j_idt308");
+        dsl.escreve("j_idt311:name", "Teste");
+        dsl.clicar("j_idt311:j_idt315");
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
-        // wait.until(ExpectedConditions.textToBe(By.id("j_idt304:display"), "Teste"));
+        // wait.until(ExpectedConditions.textToBe(By.id("j_idt311:display"), "Teste"));
         wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//*[contains(@class, 'pi-spinner')]")));
-        Assert.assertEquals("Teste", dsl.obterTexto("j_idt304:display"));
+        Assert.assertEquals("Teste", dsl.obterTexto("j_idt311:display"));
     }
 }

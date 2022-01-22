@@ -28,11 +28,11 @@ public class TestePrimeFaces {
     public void deveInteragirComRadioPrime() {
         getDriver().get("https://www.primefaces.org/showcase/ui/input/oneRadio.xhtml");
 
-        dsl.clicar(By.xpath("//*[@id='j_idt305:console:1']/../..//span"));
-        Assert.assertTrue(dsl.verificaMarcado("j_idt305:console:1"));
+        dsl.clicar(By.xpath("//*[@id='j_idt312:console:1']/../..//span"));
+        Assert.assertTrue(dsl.verificaMarcado("j_idt312:console:1"));
 
         dsl.clicar(By.xpath("//label[.='Option3']/..//span"));
-        Assert.assertTrue(dsl.verificaMarcado("j_idt305:console:2"));
+        Assert.assertTrue(dsl.verificaMarcado("j_idt312:console:2"));
     }
 
     @Test
